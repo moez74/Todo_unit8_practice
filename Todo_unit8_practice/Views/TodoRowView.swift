@@ -12,21 +12,25 @@ struct TodoRowView: View {
     @Binding var todo: Todo
     
     var body: some View {
-        HStack {
-            Image(systemName: todo.isCompleted ?  "checkmark.circle.fill" : "circle")
-                .onTapGesture {
-                    todo.isCompleted.toggle()
-                }
-            
-            VStack(alignment: .leading) {
-                Text(todo.title)
-                    .strikethrough(todo.isCompleted)
+        NavigationLink {
+            TodoDetailView(todo: $todo)
+        } label: {
+            HStack {
+                Image(systemName: todo.isCompleted ?  "checkmark.circle.fill" : "circle")
+                    .onTapGesture {
+                        todo.isCompleted.toggle()
+                    }
                 
-                if !todo.subTitle.isEmpty {
-                    Text(todo.subTitle)
-                        .font(.footnote)
-                        .foregroundColor(.gray)
+                VStack(alignment: .leading) {
+                    Text(todo.title)
                         .strikethrough(todo.isCompleted)
+                    
+                    if !todo.subTitle.isEmpty {
+                        Text(todo.subTitle)
+                            .font(.footnote)
+                            .foregroundColor(.gray)
+                            .strikethrough(todo.isCompleted)
+                    }
                 }
             }
         }
