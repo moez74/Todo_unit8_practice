@@ -12,6 +12,7 @@ struct Todo: Identifiable {
     //var id: Int
     
     var title: String
-    var isComplete = false
+    var subTitle = ""
+    var isCompleted = false
 }
 
