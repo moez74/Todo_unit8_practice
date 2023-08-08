@@ -15,8 +15,20 @@ class TodoManager: ObservableObject {
         }
     }
         
+    var numTodosDone: Int {
+        todos.filter{$0.isCompleted}.count
+    }
+    
+    var numTodosNotDone: Int {
+        todos.filter{!$0.isCompleted}.count
+    }
+    
     init() {
         load()
+    }
+    
+    func loadSampleData() {
+        todos = Todo.sampleTodos
     }
     
     func getArchiveURL() -> URL {
@@ -33,12 +45,9 @@ class TodoManager: ObservableObject {
         try? encodedTodos?.write(to: archiveURL, options: .noFileProtection)
     }
     
-    func loadSampleData() {
-        todos = Todo.sampleTodos
-    }
-    
     func load() {
         let archiveURL = getArchiveURL()
+        print(archiveURL)
         let propertyListDecoder = PropertyListDecoder()
                 
         if let retrievedTodoData = try? Data(contentsOf: archiveURL),

@@ -9,7 +9,6 @@ import SwiftUI
 
 struct TodoDetailView: View {
     
-    //@State var todo = Todo(title: "Some Todo", subTitle: "Some SubTitle", isCompleted: false)
     @Binding var todo: Todo
     
     

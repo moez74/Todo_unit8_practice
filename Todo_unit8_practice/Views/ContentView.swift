@@ -11,31 +11,20 @@ struct ContentView: View {
     
     @StateObject var todoManager = TodoManager()
     
-    @State private var showAddSheet = false
-    
     var body: some View {
         
-        NavigationStack {
-            List($todoManager.todos, editActions: [.all]) { $todo in
-                TodoRowView(todo: $todo)
-            }
-            .navigationTitle("Todos")
-            .toolbar {
-                ToolbarItem(placement: .navigationBarLeading) {
-                    EditButton()
+        TabView {
+            MainTodoListView(todoManager: todoManager)
+                .tabItem {
+                    Label("Todos", systemImage: "checkmark.circle.fill")
                 }
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    Button {
-                        showAddSheet = true
-                    } label: {
-                        Image(systemName: "plus")
-                    }
+            
+            HowManyMoreView(todoManager: todoManager)
+                .tabItem {
+                    Label("How many more?", systemImage: "number.circle")
                 }
-            }
-            .sheet(isPresented: $showAddSheet){
-                NewTodoView(sourceArray: $todoManager.todos)
-            }
         }
+       
     }
 }
 
