@@ -13,14 +13,13 @@ struct MainTodoListView: View {
     @State private var showAddSheet = false
     @State private var sampleDataAlert = false
     
-    @State var searchItem = ""
-    
     var body: some View {
         NavigationStack {
             
-            List($todoManager.todos, editActions: [.all]) { $todo in
+            List(todoManager.todosFiltered, editActions: [.all]) { $todo in
                 TodoRowView(todo: $todo)
             }
+            .searchable(text: $todoManager.searchTerm)
             .navigationTitle("Todos")
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
